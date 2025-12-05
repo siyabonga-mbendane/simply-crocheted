@@ -2,6 +2,7 @@ import express from "express";
 import dotenv  from "dotenv";
 import { connectDB } from "./config/db.js";
 import itemRoutes from "./routes/items.route.js"
+import userRoutes from "./routes/users.route.js"
 
 // to access the .env variables
 dotenv.config();
@@ -13,6 +14,8 @@ app.use(express.json());
 
 // items routing
 app.use("/api/items", itemRoutes);
+// users routing
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, ()=>{
     connectDB();
