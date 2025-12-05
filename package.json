@@ -1,0 +1,28 @@
+{
+  "name": "simply-crocheted",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node backend/server.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siyabonga-mbendane/simply-crocheted.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siyabonga-mbendane/simply-crocheted/issues"
+  },
+  "homepage": "https://github.com/siyabonga-mbendane/simply-crocheted#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongodb": "4.1",
+    "mongoose": "^9.0.0",
+    "nodemon": "^3.1.11"
+  }
+}

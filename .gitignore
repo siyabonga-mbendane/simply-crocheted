@@ -1,0 +1,6 @@
+# security and environment
+.env
+
+# ide
+
+.vscode/
