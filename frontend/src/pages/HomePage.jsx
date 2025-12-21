@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {Container, VStack, Text, SimpleGrid} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useItemStore } from '../shop/item'
-import ItemCard from '../components/ItemCard.jsx'
+import ItemCard from '../components/ItemCard'
 
 const HomePage = () => {
 
@@ -37,14 +37,16 @@ const HomePage = () => {
             <ItemCard key={item._id} item={item}/>
           ))}
         </SimpleGrid>
-        <Text fontSize='xl' textAlign={"center"} fontWeight='bold' color='gray.500'>
+       {items.length === 0 && (
+         <Text fontSize='xl' textAlign={"center"} fontWeight='bold' color='gray.500'>
           No items found 😔 {" "} 
           <Link to={"/create"}>
             <Text as='span' color='blue.500' _hover={{textDecoration: "underline"}}>
               Create an item 
             </Text>
           </Link> 
-        </Text> 
+        </Text>
+       )} 
       </VStack>
     </Container>
   )  
