@@ -41,6 +41,14 @@ export const useItemStore = create((set) => ({
 
     },
     updateItem: async (id, updatedItem) => {
+
+        if(!updatedItem.name || !updatedItem.price || !updatedItem.image){
+            return {success: false, message: "Enter all required fields!"};
+        }
+
+        if(isNaN(updatedItem.price)){
+            return {success: false, message: "Price should be numeric!"};
+        }
         const res = await fetch(`/api/items/${id}`, {
             method: "PUT",
             headers: {
