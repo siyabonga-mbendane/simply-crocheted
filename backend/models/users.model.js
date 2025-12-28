@@ -13,22 +13,23 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    role:{
+        type: String,
+        enum: ["admin", "customer"],
+        default: "customer"
     }
 }, {timestamps: true});
 
 // hash password before save
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
     if(!this.isModified("password")){
-        return next();
+        return;
     }
 
-    try {
-        const saltRounds = 10;
-        this.password = await bcrypt.hash(this.password, saltRounds);
-        return next();
-    } catch (error) {
-        return next(error);
-    }
+
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
 });
 
 // compare password

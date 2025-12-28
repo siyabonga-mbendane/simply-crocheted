@@ -1,18 +1,15 @@
 import express from "express";
 import { createItem, updateItem, getItems, deleteItems } from "../controllers/items.controller.js";
+import { auth, adminAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
 // get all items from database
 router.get("/", getItems);
 
-// create an item
-router.post("/", createItem);
-
-// update an item
-router.put("/:id", updateItem);
-
-// delete an item
-router.delete("/:id", deleteItems);
+// only admin
+router.post("/", auth, adminAuth, createItem);
+router.put("/:id", auth, adminAuth, updateItem);
+router.delete("/:id", auth, adminAuth, deleteItems);
 
 export default router;
