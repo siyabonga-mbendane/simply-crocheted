@@ -65,14 +65,14 @@ export const loginUser = async (req, res) =>{
         }
 
         // create jwt token
-        const tkn = jwt.sign({id: newUser._id, role: newUser.role}, process.env.JWT_SECRET || 'own-secret-key', {expiresIn: '24h'});
+        const tkn = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET || 'own-secret-key', {expiresIn: '24h'});
 
         // user data returned
-        const userData = {_id: newUser._id, 
-                          username: newUser.username, 
-                          email: newUser.email, 
-                          role: newUser.role, 
-                          createdAt: newUser.createdAt
+        const userData = {_id: user._id, 
+                          username: user.username, 
+                          email: user.email, 
+                          role: user.role, 
+                          createdAt: user.createdAt
                          };
         
         return res.status(201).json({success: true, data: userData, token: tkn});
