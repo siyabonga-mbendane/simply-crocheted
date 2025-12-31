@@ -36,28 +36,28 @@ const LandingPage = () => {
         {
             id: 1,
             name: "Amigurumi Animals",
-            image: "https://images.unsplash.com/photo-1576584337323-ef4b5f5c3a1e?w=800&auto=format&fit=crop&q=60",
+            image: "https://images.unsplash.com/photo-1758199920181-d4ac0e6c11b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YW1pZ3VydW1pJTIwYW5pbWFsc3xlbnwwfHwwfHx8MA%3D%3D",
             description: "Handmade crochet animals",
             category: "Toys"
         },
         {
             id: 2,
             name: "Cozy Blankets",
-            image: "https://images.unsplash.com/photo-1590663558016-dbd2a4d4e93c?w=800&auto=format&fit=crop&q=60",
+            image: "https://images.unsplash.com/photo-1693387347071-d3bf494cbe0e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3JvY2hldCUyMGJsYW5rZXRzfGVufDB8fDB8fHww",
             description: "Warm and comfortable",
             category: "Home"
         },
         {
             id: 3,
             name: "Fashionable Scarves",
-            image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=60",
+            image: "https://plus.unsplash.com/premium_photo-1760118488677-0edd1f262a67?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3JvY2hldCUyMHNjYXJmc3xlbnwwfHwwfHx8MA%3D%3D",
             description: "Stylish winter wear",
             category: "Fashion"
         },
         {
             id: 4,
             name: "Eco-friendly Bags",
-            image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&auto=format&fit=crop&q=60",
+            image: "https://media.istockphoto.com/id/1458169452/photo/young-woman-carrying-resuable-mug-big-green-crochet-tote-bag-summer-fashion-style.webp?a=1&b=1&s=612x612&w=0&k=20&c=0EtSi8UqhFqWDLXJpD2S_vd-Wh_O7Hnyah3zhqDh-Z4=",
             description: "Sustainable shopping",
             category: "Accessories"
         }
@@ -319,7 +319,7 @@ const LandingPage = () => {
                         </VStack>
                     </Box>
 
-                    {/* Call to Action */}
+                    {/*call to action*/}
                     <MotionBox
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

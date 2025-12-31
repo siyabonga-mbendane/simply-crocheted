@@ -1,14 +1,22 @@
-import { useDeprecatedAnimatedState } from 'framer-motion'
-import { useState } from 'react'
+
 import {create} from 'zustand'
 import { useUserStore } from '../users/user';
 
-export const useItemStore = create((set) => ({
+export const useItemStore = create((set, get) => ({
     items: [],
     setItems: (items) => set({items}),
 
     // auth headers
     getAuthHeaders: () =>{
+        // token valid?
+        if(!useItemStore.getState().isTokenValid()){
+            console.error("Token is invalid or expired");
+            useUserStore.getState().logout();
+
+            return{
+                "Content-Type": "application/json"
+            };
+        }
         const token = useUserStore.getState().token;
         return {
             "Content-Type": "application/json",
@@ -16,6 +24,13 @@ export const useItemStore = create((set) => ({
         };
     },
     createItem: async (newItem) => {
+
+        if(!useUserStore.getState().isAuthenticated() || !useItemStore.getState().isTokenValid()){
+            return {success: false, message: "Authentication is required, login again"};
+        }
+        if(!useUserStore.getState().isAdmin()){
+            return {success: false, message: "Admin access is required"};
+        }
         if(!newItem.name || !newItem.price || !newItem.image){
             return {success:false, message:"fill in all fields!"}
         }
@@ -24,15 +39,24 @@ export const useItemStore = create((set) => ({
         try {
             const res = await fetch("/api/items", {
             method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
+            headers:headers,
             body:JSON.stringify(newItem)
         });
 
         const data = await res.json();
-        set((state) =>({items:[...state.items, data.data]}));
-        return {success:true, message:"Item created!"};
+
+        if(!res.ok) {
+            return { success: false, message: data.message || "Failed to create item" };
+        }
+
+        if(data.success){
+            set((state) =>({items:[...state.items, data.data]}));
+            return {success:true, message:"Item created!"};
+        }
+        else{
+            return { success: false, message: data.message || "Failed to create item" };
+        }
+        
 
         } catch (error) {
             return {success: false, message: "Network Error"};
@@ -60,10 +84,12 @@ export const useItemStore = create((set) => ({
     },
     deleteItem: async (id) => {
 
+        const headers = get().getAuthHeaders();
+
         try {
             const res = await fetch(`/api/items/${id}`, {
             method: "DELETE",
-            headers,
+            headers: headers,
             });
 
             const data = await res.json();

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import jwt_decode from 'jwt-decode';
 
 export const useUserStore = create(
     persist(
@@ -9,6 +10,29 @@ export const useUserStore = create(
             isAuthenticated: false,
             loading: false,
             error: null,
+
+            isTokenValid: ()=>{
+                const token = get().token;
+                if(!token){
+                    return false;
+
+                    try {
+                        const decoded = jwt_decode(token);
+                        const curr_time = Date.now()/1000;
+
+                        // expired token?
+                        if(decoded.exp < curr_time){
+                            get().logout();
+                            return false;
+                        }
+                        return true;
+                    } catch (error) {
+                        console.error("Error decoding token: ", error)
+                        get().logout();
+                        return false;
+                    }
+                }
+            },
 
             // signup
             signup: async (userData) => {

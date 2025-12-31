@@ -1,6 +1,7 @@
-import { Box, Button, Container, Heading, Input, useToast, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Input, useToast, useColorModeValue, VStack, Spinner } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { useItemStore } from '../shop/item';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePage = () => {
 
@@ -9,13 +10,18 @@ const CreatePage = () => {
     price:"",
     image:""
   });
+
+
   // notification
   const toast = useToast();
+  const navigate = useNavigate();
 
   const {createItem} = useItemStore();
 
   const handleAddItem = async () =>{
     const {success, message} = await createItem(newItem);
+
+    
     if(!success){
       toast({
         "title":"Error",
@@ -33,13 +39,17 @@ const CreatePage = () => {
       })
     }
     setNewItem({name:"", price:"", image:";"});
-  }
+    setTimeout(() =>{ 
+      navigate('/shop');
+    }, 1500);
+
+  };
   return (
     <Container maxW={"container.sm"}>
       <VStack
         spacing={8}
       >
-        <Heading as={"h1"} size={"2xl"} textAlign={"center"} mg={8}>
+        <Heading as={"h1"} size={"2xl"} textAlign={"center"} mt={8}>
           Add New Item
         </Heading>
         <Box
